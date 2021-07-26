@@ -1,11 +1,16 @@
 import jobCardStyles from '../styles/Jobs.module.css'
 import Link from 'next/link'
+import Image from 'next/image'
 
-const JobCard = ({job}) => {
+const JobCard = ({job, key}) => {
     //generate random color generic logo
     var colors = ['#F44336', '#FFA000', '#4CAF50', '#CCDB39', '#673AB7'];
     var random_color = colors[Math.floor(Math.random() * colors.length)];
     var style = {backgroundColor: random_color}
+
+    const myLoader = ({ src, width, quality }) => {
+        return `${src}?w=${width}&q=${quality || 75}`
+    }
 
     //Job Card Details
     return (
@@ -14,7 +19,13 @@ const JobCard = ({job}) => {
                 {/*if company logo exists, display company logo, else use generic logo */}
                 {job.companyLogo 
                     ? <div className={jobCardStyles.companyLogo} >
-                        <img src={job.companyLogo}></img>
+                        <Image 
+                        loader={myLoader}
+                        src={job.companyLogo} 
+                        alt='logo' 
+                        width={40} 
+                        height={40}
+                        />
                       </div>  
                     : <div className={jobCardStyles.genericLogo} style={style} >
                         {job.companyInitial}

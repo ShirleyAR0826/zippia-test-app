@@ -5,7 +5,7 @@ import {useState} from 'react'
 import Head from 'next/head'
 import JobsList from '../../components/JobsList'
 
-export default function jobs({jobs}) {
+export default function Jobs({jobs}) {
     const [jobsListLength, setJobsListLength] = useState(10)
     const [jobsList, setJobsList] = useState(jobs.jobs)
     const [companyName, setCompanyName] = useState(null)
@@ -85,7 +85,7 @@ export default function jobs({jobs}) {
                 onChange={onCompanyNameChange}
                 filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 >
-                    {jobs.jobs.map(job => <Option value={job.companyName}>{job.companyName}</Option>)}
+                    {jobs.jobs.map(job => <Option key={job.jobId} value={job.companyName}>{job.companyName}</Option>)}
                 </Select>
                 <div className={jobsStyles.action}>
                     <Button type="text" onClick={clearCompanyNameFilter}>Clear</Button>
